@@ -1,5 +1,7 @@
 import 'src/global.css';
 
+import { useAuth } from '@workos-inc/authkit-react';
+
 import Fab from '@mui/material/Fab';
 
 import { Router } from 'src/routes/sections';
@@ -10,10 +12,19 @@ import { ThemeProvider } from 'src/theme/theme-provider';
 
 import { Iconify } from 'src/components/iconify';
 
+import { useRouter } from './routes/hooks';
+
 // ----------------------------------------------------------------------
 
 export default function App() {
   useScrollToTop();
+
+  const { user } = useAuth();
+  const router = useRouter();
+  
+  if (!user) {
+    router.push('/sign-in');
+  }
 
   const githubButton = (
     <Fab

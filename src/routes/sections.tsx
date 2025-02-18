@@ -5,7 +5,6 @@ import Box from '@mui/material/Box';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 
 import { varAlpha } from 'src/theme/styles';
-import { AuthLayout } from 'src/layouts/auth';
 import { DashboardLayout } from 'src/layouts/dashboard';
 
 // ----------------------------------------------------------------------
@@ -51,11 +50,7 @@ export function Router() {
     },
     {
       path: 'sign-in',
-      element: (
-        <AuthLayout>
-          <SignInPage />
-        </AuthLayout>
-      ),
+      element: <SignInPage />,
     },
     {
       path: '404',

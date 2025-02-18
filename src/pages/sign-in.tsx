@@ -1,19 +1,25 @@
-import { Helmet } from 'react-helmet-async';
+import { useEffect } from 'react';
+import { useAuth } from '@workos-inc/authkit-react';
 
-import { CONFIG } from 'src/config-global';
+import { useRouter } from 'src/routes/hooks';
 
-import { SignInView } from 'src/sections/auth';
+export default function SignIn() {
+  const router = useRouter();
+  const { user, signIn } = useAuth();
 
-// ----------------------------------------------------------------------
+  useEffect(() => {
+    if(user){
+      router.push('/');
+    }
 
-export default function Page() {
-  return (
-    <>
-      <Helmet>
-        <title> {`Sign in - ${CONFIG.appName}`}</title>
-      </Helmet>
+    const handleSignIn = () => {
+      const searchParams = new URLSearchParams(window.location.search);
+      const context = searchParams.get('context') ?? undefined;
+      signIn({ context });
+    };
 
-      <SignInView />
-    </>
-  );
+    handleSignIn();
+  }, [router, signIn, user]);
+
+  return null;
 }
